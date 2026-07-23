@@ -26,6 +26,7 @@ The project follows the class application flow:
 - View dog details
 - Submit one adoption request per dog
 - View request history
+- Add review
 
 ### Staff
 
@@ -60,9 +61,32 @@ pet-adoption-app/
 │   └── images/dogs/
 └── views/
     ├── partials/
+    │   └──adminNavbar.ejs
+    │   └──customerNavbar.ejs
+    │   └──messages.ejs
+    │   └──staffNabar.ejs
     ├── customer/
+    │   └──addReview.ejs
+    │   └──dashboard.ejs
+    │   └──dogDetails.ejs
+    │   └──editReview.ejs
+    │   └──requesthistory.ejs
+    │   └──review.ejs
     ├── staff/
+    │   └──addDog.ejs
+    │   └──customerDetails.ejs
+    │    └──dashboard.ejs
+    │    └──dogDetails.ejs
+    │    └──editDog.ejs
+    │    └──report.ejs
+    │
     └── admin/
+        └──addStaff.ejs
+        └──customers.ejs
+        └──dashboard.ejs
+        └──editCustomer.ejs
+        └──editStaff.ejs
+        └──staff.ejs
 ```
 
 ## Setup Instructions
