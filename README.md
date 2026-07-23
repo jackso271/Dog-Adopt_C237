@@ -176,3 +176,14 @@ The following should not be committed:
 ## Search and Filtering
 
 Search and filtering are intentionally not included in this first version. They can be added after all core features are tested and working.
+
+##.env
+DB_HOST=c237-eaint-mysql.mysql.database.azure.com
+DB_PORT=3306
+DB_USER=c237_001
+DB_PASSWORD=c237001@2026!
+DB_NAME=c237_001_teamaplus
+DB_SSL=true
+
+SESSION_SECRET=mySuperSecretKey123
+PORT=3000
