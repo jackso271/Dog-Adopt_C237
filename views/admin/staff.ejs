@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/adminNavbar') %>
+
+    <main class="container">
+        <h1>Staff Management</h1>
+        <%- include('../partials/messages') %>
+
+        <form class="search-form" action="/admin/staff" method="GET">
+            <input type="text" name="search" value="<%= search %>" placeholder="Search by staff name or email">
+            <button type="submit">Search</button>
+            <% if (search) { %>
+                <a href="/admin/staff">Clear</a>
+            <% } %>
+        </form>
+
+        <p><a class="button-link" href="/admin/staff/add">Add Staff</a></p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% staffMembers.forEach((staffMember) => { %>
+                        <tr>
+                            <td><%= staffMember.name %></td>
+                            <td><%= staffMember.email %></td>
+                            <td><%= staffMember.phone %></td>
+                            <td>
+                                <a href="/admin/staff/<%= staffMember.userId %>/edit">Edit</a>
+                                |
+                                <a href="/admin/staff/<%= staffMember.userId %>/delete" onclick="return confirm('Delete this staff account?')">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <% if (staffMembers.length === 0) { %>
+            <% if (search) { %>
+                <p>No staff matched your search.</p>
+            <% } else { %>
+                <p>No staff accounts found.</p>
+            <% } %>
+        <% } %>
+    </main>
+</body>
+</html>
