@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/adminNavbar') %>
+
+    <main class="container narrow-container">
+        <h1>Edit Customer</h1>
+        <%- include('../partials/messages') %>
+
+        <form action="/admin/customers/<%= customer.userId %>/edit" method="POST" class="form-card normal-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<%= customer.name %>" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="<%= customer.email %>" required>
+
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone" value="<%= customer.phone %>" required>
+
+            <button type="submit">Update Customer</button>
+        </form>
+    </main>
+</body>
+</html>
