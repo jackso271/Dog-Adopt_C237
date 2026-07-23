@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= dog.name %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/customerNavbar') %>
+
+    <main class="container detail-page">
+        <%- include('../partials/messages') %>
+
+        <img class="detail-image" src="/images/dogs/<%= dog.image %>" alt="<%= dog.name %>">
+        <section>
+            <h1><%= dog.name %></h1>
+            <p><strong>Age:</strong> <%= dog.age %></p>
+            <p><strong>Gender:</strong> <%= dog.gender %></p>
+            <p><strong>Breed:</strong> <%= dog.breed %></p>
+            <p><strong>Summary:</strong> <%= dog.summary %></p>
+
+            <% if (existingRequest) { %>
+                <p class="status-text">
+                    You already submitted a request. Status:
+                    <strong><%= existingRequest.requestStatus %></strong>
+                </p>
+            <% } else { %>
+                <form
+                    action="/customer/dogs/<%= dog.dogId %>/adopt"
+                    method="POST"
+                    onsubmit="return confirm('Are you sure you want to request adoption for <%= dog.name %>?')"
+                >
+                    <button type="submit">Adopt</button>
+                </form>
+            <% } %>
+        </section>
+    </main>
+</body>
+</html>

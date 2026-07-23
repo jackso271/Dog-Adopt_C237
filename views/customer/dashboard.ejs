@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Dogs</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/customerNavbar') %>
+
+    <main class="container">
+        <h1>Dogs Available for Adoption</h1>
+        <p>Welcome, <%= currentUser.name %>.</p>
+        <%- include('../partials/messages') %>
+
+        <form class="search-form" action="/customer/dashboard" method="GET">
+            <input type="text" name="search" value="<%= search %>" placeholder="Search by dog name or breed">
+            <button type="submit">Search</button>
+            <% if (search) { %>
+                <a href="/customer/dashboard">Clear</a>
+            <% } %>
+        </form>
+
+        <% if (dogs.length === 0) { %>
+            <% if (search) { %>
+                <p>No dogs matched your search.</p>
+            <% } else { %>
+                <p>No dogs are currently available.</p>
+            <% } %>
+        <% } %>
+
+        <section class="card-grid">
+            <% dogs.forEach((dog) => { %>
+                <a class="dog-card" href="/customer/dogs/<%= dog.dogId %>">
+                    <img src="/images/dogs/<%= dog.image %>" alt="<%= dog.name %>">
+                    <div class="card-content">
+                        <h2><%= dog.name %></h2>
+                        <p><strong>Age:</strong> <%= dog.age %></p>
+                        <p><strong>Gender:</strong> <%= dog.gender %></p>
+                        <p><strong>Breed:</strong> <%= dog.breed %></p>
+                    </div>
+                </a>
+            <% }) %>
+        </section>
+    </main>
+</body>
+</html>
