@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Dog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/staffNavbar') %>
+
+    <main class="container narrow-container">
+        <h1>Edit Dog</h1>
+        <%- include('../partials/messages') %>
+
+        <form action="/staff/dogs/<%= dog.dogId %>/edit" method="POST" enctype="multipart/form-data" class="form-card normal-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<%= dog.name %>" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="0" value="<%= dog.age %>" required>
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="Male" <%= dog.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                <option value="Female" <%= dog.gender === 'Female' ? 'selected' : '' %>>Female</option>
+            </select>
+
+            <label for="breed">Breed</label>
+            <input type="text" id="breed" name="breed" value="<%= dog.breed %>" required>
+
+            <label for="summary">Summary</label>
+            <textarea id="summary" name="summary" rows="5" required><%= dog.summary %></textarea>
+
+            <label>Current Image</label>
+            <img class="form-image" src="/images/dogs/<%= dog.image %>" alt="<%= dog.name %>">
+            <input type="hidden" name="currentImage" value="<%= dog.image %>">
+
+            <label for="image">New Image (optional)</label>
+            <input type="file" id="image" name="image" accept="image/*">
+
+            <button type="submit">Update Dog</button>
+        </form>
+    </main>
+</body>
+</html>
