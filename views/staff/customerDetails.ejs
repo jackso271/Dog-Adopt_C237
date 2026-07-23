@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/staffNavbar') %>
+
+    <main class="container narrow-container">
+        <section class="form-card normal-form">
+            <h1>Customer Details</h1>
+            <p><strong>Name:</strong> <%= customer.name %></p>
+            <p><strong>Email:</strong> <%= customer.email %></p>
+            <p><strong>Phone:</strong> <%= customer.phone %></p>
+            <a class="button-link" href="/staff/report">Back to Report</a>
+        </section>
+    </main>
+</body>
+</html>
