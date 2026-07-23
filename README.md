@@ -60,6 +60,12 @@ pet-adoption-app/
 │   ├── css/style.css
 │   └── images/dogs/
 └── views/
+    ├──error.ejs
+    │
+    ├──login.ejs
+    │
+    ├──signup.ejs
+    │
     ├── partials/
     │   └──adminNavbar.ejs
     │   └──customerNavbar.ejs
@@ -75,10 +81,10 @@ pet-adoption-app/
     ├── staff/
     │   └──addDog.ejs
     │   └──customerDetails.ejs
-    │    └──dashboard.ejs
-    │    └──dogDetails.ejs
-    │    └──editDog.ejs
-    │    └──report.ejs
+    │   └──dashboard.ejs
+    │   └──dogDetails.ejs
+    │   └──editDog.ejs
+    │   └──report.ejs
     │
     └── admin/
         └──addStaff.ejs
