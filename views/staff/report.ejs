@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption Report</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/staffNavbar') %>
+
+    <main class="container">
+        <h1>Adoption Report</h1>
+        <%- include('../partials/messages') %>
+
+        <section class="report-cards">
+            <div class="report-card">
+                <h2>Dogs Adopted</h2>
+                <p><%= adoptedDogs %></p>
+            </div>
+            <div class="report-card">
+                <h2>Dogs Currently Available</h2>
+                <p><%= availableDogs %></p>
+            </div>
+        </section>
+
+        <h2>Pending Adoption Requests</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Dog</th>
+                        <th>Request Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% requests.forEach((request) => { %>
+                        <tr>
+                            <td><a href="/staff/customers/<%= request.userId %>"><%= request.customerName %></a></td>
+                            <td><a href="/staff/dogs/<%= request.dogId %>"><%= request.dogName %></a></td>
+                            <td><%= new Date(request.requestDate).toLocaleString() %></td>
+                            <td>
+                                <div class="button-row">
+                                    <form action="/staff/requests/<%= request.requestId %>/accept" method="POST" onsubmit="return confirm('Accept this adoption request?')">
+                                        <button type="submit">Accept</button>
+                                    </form>
+                                    <form action="/staff/requests/<%= request.requestId %>/deny" method="POST" onsubmit="return confirm('Deny this adoption request?')">
+                                        <button type="submit" class="danger-button">Deny</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <% if (requests.length === 0) { %>
+            <p>There are no pending adoption requests.</p>
+        <% } %>
+    </main>
+</body>
+</html>
