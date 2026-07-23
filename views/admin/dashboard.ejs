@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/adminNavbar') %>
+
+    <main class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Manage customer and staff accounts.</p>
+        <%- include('../partials/messages') %>
+
+        <section class="admin-options">
+            <a class="admin-option" href="/admin/customers">
+                <h2>Customer CRUD</h2>
+                <p>View, edit and delete customer accounts.</p>
+            </a>
+
+            <a class="admin-option" href="/admin/staff">
+                <h2>Staff CRUD</h2>
+                <p>View, add, edit and delete staff accounts.</p>
+            </a>
+        </section>
+    </main>
+</body>
+</html>
