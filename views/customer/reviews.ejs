@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Reviews</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <%- include('../partials/customerNavbar') %>
+
+    <main class="container">
+        <div class="page-heading">
+            <div>
+                <h1>Customer Reviews</h1>
+
+                <p>
+                    Read reviews shared by other customers.
+                </p>
+            </div>
+
+            <a
+                class="button-link"
+                href="/customer/reviews/new"
+            >
+                Add Review
+            </a>
+        </div>
+
+        <%- include('../partials/messages') %>
+
+        <% if (reviews.length === 0) { %>
+            <div class="empty-state">
+                <h2>No reviews yet</h2>
+
+                <p>
+                    Be the first customer to add a review.
+                </p>
+            </div>
+        <% } %>
+
+        <section class="review-grid">
+            <% reviews.forEach((review) => { %>
+                <article class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h2><%= review.title %></h2>
+
+                            <p class="review-author">
+                                By <%= review.customerName %>
+                            </p>
+                        </div>
+
+                        <span class="rating">
+                            <%= '★'.repeat(review.rating) %>
+                            <%= '☆'.repeat(5 - review.rating) %>
+                        </span>
+                    </div>
+
+                    <p class="review-comment">
+                        <%= review.comment %>
+                    </p>
+
+                    <p class="review-date">
+                        Posted
+                        <%= new Date(review.createdAt).toLocaleString() %>
+
+                        <% if (
+                            new Date(review.updatedAt).getTime()
+                            !==
+                            new Date(review.createdAt).getTime()
+                        ) { %>
+                            · Edited
+                        <% } %>
+                    </p>
+
+                    <% if (
+                        currentUser &&
+                        currentUser.userId === review.userId
+                    ) { %>
+                        <div class="button-row">
+                            <a
+                                class="button-link"
+                                href="/customer/reviews/<%= review.reviewId %>/edit"
+                            >
+                                Edit
+                            </a>
+
+                            <form
+                                action="/customer/reviews/<%= review.reviewId %>/delete"
+                                method="POST"
+                                onsubmit="return confirm('Delete this review?');"
+                            >
+                                <button
+                                    class="danger-button"
+                                    type="submit"
+                                >
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    <% } %>
+                </article>
+            <% }) %>
+        </section>
+    </main>
+</body>
+</html>

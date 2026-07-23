@@ -175,5 +175,286 @@ router.get('/requests', (req, res) => {
         });
     });
 });
+// =====================================================
+// CUSTOMER REVIEW ROUTES
+// =====================================================
+
+
+// READ - Display all customer reviews
+router.get('/reviews', (req, res) => {
+    const sql = `
+        SELECT
+            reviews.reviewId,
+            reviews.userId,
+            reviews.title,
+            reviews.rating,
+            reviews.comment,
+            reviews.createdAt,
+            reviews.updatedAt,
+            users.name AS customerName
+        FROM reviews
+        INNER JOIN users
+            ON reviews.userId = users.userId
+        ORDER BY reviews.createdAt DESC
+    `;
+
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error('Reviews page error:', error);
+
+            return res.status(500).render('error', {
+                message: 'Unable to retrieve reviews.'
+            });
+        }
+
+        res.render('customer/reviews', {
+            reviews: results
+        });
+    });
+});
+
+
+// Display the add-review form
+router.get('/reviews/new', (req, res) => {
+    res.render('customer/addReview');
+});
+
+
+// CREATE - Add a new review
+router.post('/reviews', (req, res) => {
+    const userId = req.session.user.userId;
+
+    const title = (req.body.title || '').trim();
+    const rating = Number(req.body.rating);
+    const comment = (req.body.comment || '').trim();
+
+    if (
+        !title ||
+        !comment ||
+        !Number.isInteger(rating) ||
+        rating < 1 ||
+        rating > 5
+    ) {
+        req.flash(
+            'error',
+            'Please enter a title, rating from 1 to 5, and review comment.'
+        );
+
+        return res.redirect('/customer/reviews/new');
+    }
+
+    const sql = `
+        INSERT INTO reviews (
+            userId,
+            title,
+            rating,
+            comment
+        )
+        VALUES (?, ?, ?, ?)
+    `;
+
+    connection.query(
+        sql,
+        [userId, title, rating, comment],
+        (error) => {
+            if (error) {
+                console.error('Create review error:', error);
+
+                req.flash(
+                    'error',
+                    'Unable to add your review.'
+                );
+
+                return res.redirect('/customer/reviews/new');
+            }
+
+            req.flash(
+                'success',
+                'Your review has been added.'
+            );
+
+            res.redirect('/customer/reviews');
+        }
+    );
+});
+
+
+// Display the edit form
+router.get('/reviews/:id/edit', (req, res) => {
+    const reviewId = req.params.id;
+    const userId = req.session.user.userId;
+
+    const sql = `
+        SELECT
+            reviewId,
+            title,
+            rating,
+            comment
+        FROM reviews
+        WHERE reviewId = ?
+        AND userId = ?
+    `;
+
+    connection.query(
+        sql,
+        [reviewId, userId],
+        (error, results) => {
+            if (error) {
+                console.error(
+                    'Edit review page error:',
+                    error
+                );
+
+                return res.status(500).render('error', {
+                    message: 'Unable to retrieve the review.'
+                });
+            }
+
+            if (results.length === 0) {
+                req.flash(
+                    'error',
+                    'Review not found or you are not allowed to edit it.'
+                );
+
+                return res.redirect('/customer/reviews');
+            }
+
+            res.render('customer/editReview', {
+                review: results[0]
+            });
+        }
+    );
+});
+
+
+// UPDATE - Update the customer's own review
+router.post('/reviews/:id/update', (req, res) => {
+    const reviewId = req.params.id;
+    const userId = req.session.user.userId;
+
+    const title = (req.body.title || '').trim();
+    const rating = Number(req.body.rating);
+    const comment = (req.body.comment || '').trim();
+
+    if (
+        !title ||
+        !comment ||
+        !Number.isInteger(rating) ||
+        rating < 1 ||
+        rating > 5
+    ) {
+        req.flash(
+            'error',
+            'Please enter a title, rating from 1 to 5, and review comment.'
+        );
+
+        return res.redirect(
+            `/customer/reviews/${reviewId}/edit`
+        );
+    }
+
+    const sql = `
+        UPDATE reviews
+        SET
+            title = ?,
+            rating = ?,
+            comment = ?
+        WHERE reviewId = ?
+        AND userId = ?
+    `;
+
+    connection.query(
+        sql,
+        [
+            title,
+            rating,
+            comment,
+            reviewId,
+            userId
+        ],
+        (error, result) => {
+            if (error) {
+                console.error(
+                    'Update review error:',
+                    error
+                );
+
+                req.flash(
+                    'error',
+                    'Unable to update your review.'
+                );
+
+                return res.redirect(
+                    `/customer/reviews/${reviewId}/edit`
+                );
+            }
+
+            if (result.affectedRows === 0) {
+                req.flash(
+                    'error',
+                    'Review not found or you are not allowed to edit it.'
+                );
+
+                return res.redirect('/customer/reviews');
+            }
+
+            req.flash(
+                'success',
+                'Your review has been updated.'
+            );
+
+            res.redirect('/customer/reviews');
+        }
+    );
+});
+
+
+// DELETE - Delete the customer's own review
+router.post('/reviews/:id/delete', (req, res) => {
+    const reviewId = req.params.id;
+    const userId = req.session.user.userId;
+
+    const sql = `
+        DELETE FROM reviews
+        WHERE reviewId = ?
+        AND userId = ?
+    `;
+
+    connection.query(
+        sql,
+        [reviewId, userId],
+        (error, result) => {
+            if (error) {
+                console.error(
+                    'Delete review error:',
+                    error
+                );
+
+                req.flash(
+                    'error',
+                    'Unable to delete your review.'
+                );
+
+                return res.redirect('/customer/reviews');
+            }
+
+            if (result.affectedRows === 0) {
+                req.flash(
+                    'error',
+                    'Review not found or you are not allowed to delete it.'
+                );
+
+                return res.redirect('/customer/reviews');
+            }
+
+            req.flash(
+                'success',
+                'Your review has been deleted.'
+            );
+
+            res.redirect('/customer/reviews');
+        }
+    );
+});
 
 module.exports = router;

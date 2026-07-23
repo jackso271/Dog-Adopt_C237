@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Review</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <%- include('../partials/customerNavbar') %>
+
+    <main class="container narrow-container">
+        <h1>Add a Review</h1>
+
+        <p>
+            Share your experience with other customers.
+        </p>
+
+        <%- include('../partials/messages') %>
+
+        <section class="form-card review-form-card">
+            <form
+                class="normal-form"
+                action="/customer/reviews"
+                method="POST"
+            >
+                <label for="title">
+                    Review Title
+                </label>
+
+                <input
+                    id="title"
+                    type="text"
+                    name="title"
+                    maxlength="120"
+                    required
+                >
+
+                <label for="rating">
+                    Rating
+                </label>
+
+                <select
+                    id="rating"
+                    name="rating"
+                    required
+                >
+                    <option value="">
+                        Select a rating
+                    </option>
+
+                    <option value="5">
+                        5 - Excellent
+                    </option>
+
+                    <option value="4">
+                        4 - Very Good
+                    </option>
+
+                    <option value="3">
+                        3 - Good
+                    </option>
+
+                    <option value="2">
+                        2 - Fair
+                    </option>
+
+                    <option value="1">
+                        1 - Poor
+                    </option>
+                </select>
+
+                <label for="comment">
+                    Review
+                </label>
+
+                <textarea
+                    id="comment"
+                    name="comment"
+                    rows="7"
+                    maxlength="2000"
+                    required
+                ></textarea>
+
+                <div class="button-row">
+                    <button type="submit">
+                        Submit Review
+                    </button>
+
+                    <a
+                        class="button-link secondary-button"
+                        href="/customer/reviews"
+                    >
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
