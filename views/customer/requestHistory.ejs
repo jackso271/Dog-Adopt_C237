@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request History</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/customerNavbar') %>
+
+    <main class="container">
+        <h1>Request History</h1>
+        <%- include('../partials/messages') %>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dog</th>
+                        <th>Request Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% requests.forEach((request) => { %>
+                        <tr>
+                            <td>
+                                <img class="table-image" src="/images/dogs/<%= request.image %>" alt="<%= request.dogName %>">
+                                <%= request.dogName %>
+                            </td>
+                            <td><%= new Date(request.requestDate).toLocaleString() %></td>
+                            <td><%= request.requestStatus %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <% if (requests.length === 0) { %>
+            <p>You have not submitted any adoption requests.</p>
+        <% } %>
+    </main>
+</body>
+</html>
