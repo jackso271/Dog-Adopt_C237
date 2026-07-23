@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/adminNavbar') %>
+
+    <main class="container">
+        <h1>Customer Management</h1>
+        <%- include('../partials/messages') %>
+
+        <form class="search-form" action="/admin/customers" method="GET">
+            <input type="text" name="search" value="<%= search %>" placeholder="Search by customer name or email">
+            <button type="submit">Search</button>
+            <% if (search) { %>
+                <a href="/admin/customers">Clear</a>
+            <% } %>
+        </form>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% customers.forEach((customer) => { %>
+                        <tr>
+                            <td><%= customer.name %></td>
+                            <td><%= customer.email %></td>
+                            <td><%= customer.phone %></td>
+                            <td>
+                                <a href="/admin/customers/<%= customer.userId %>/edit">Edit</a>
+                                |
+                                <a href="/admin/customers/<%= customer.userId %>/delete" onclick="return confirm('Delete this customer?')">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <% if (customers.length === 0) { %>
+            <% if (search) { %>
+                <p>No customers matched your search.</p>
+            <% } else { %>
+                <p>No customer accounts found.</p>
+            <% } %>
+        <% } %>
+    </main>
+</body>
+</html>
