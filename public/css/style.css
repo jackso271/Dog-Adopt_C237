@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+a {
+    color: #2d6a4f;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 28px;
+    background: #1b4332;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 32px auto;
+}
+
+.narrow-container {
+    width: min(650px, 92%);
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.form-card {
+    width: min(460px, 100%);
+    background: white;
+    padding: 28px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.normal-form {
+    width: 100%;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
+
+button,
+.button-link {
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    background: #2d6a4f;
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.danger,
+.danger-button {
+    background: #b42318;
+}
+
+.message {
+    padding: 12px;
+    margin: 14px 0;
+    border-radius: 5px;
+}
+
+.message.success {
+    background: #d8f3dc;
+}
+
+.message.error {
+    background: #ffd7d7;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+.dog-card {
+    background: white;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.dog-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.detail-page {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+    gap: 30px;
+    align-items: start;
+}
+
+.detail-image {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.form-image {
+    width: 220px;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.button-row form {
+    display: inline;
+}
+
+.report-cards,
+.admin-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.report-card,
+.admin-option {
+    background: white;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-option {
+    color: inherit;
+    text-decoration: none;
+}
+
+.report-card p {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.status-text {
+    background: #fff3cd;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+@media (max-width: 700px) {
+    .navbar,
+    .detail-page {
+        display: block;
+    }
+
+    .nav-links {
+        margin-top: 12px;
+    }
+
+    .detail-page section {
+        margin-top: 20px;
+    }
+}
+
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 220px;
+    max-width: 420px;
+}
+
+.search-form a {
+    color: #333;
+}
